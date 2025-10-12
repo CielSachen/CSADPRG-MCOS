@@ -10,7 +10,7 @@ use std::{
     io::{self, Write},
 };
 
-fn print_array<T: fmt::Display>(arr: &[T]) -> () {
+fn print_array<T: fmt::Display>(arr: &[T]) {
     for (i, val) in arr.iter().enumerate() {
         println!("[{}] {val}", i + 1)
     }
@@ -27,7 +27,7 @@ fn prompt(msg: &str) -> String {
         .read_line(&mut input)
         .expect("Failed to read the input string...");
 
-    return input.trim().to_string();
+    input.trim().to_string()
 }
 
 const CURRENCIES: [&str; 6] = [
@@ -56,15 +56,15 @@ struct Account {
 }
 impl Account {
     fn new(name: String) -> Account {
-        return Account {
+        Account {
             name,
             balance: 0.0,
             currency: String::from("PHP"),
-        };
+        }
     }
 }
 
-fn deposit_balance(account: &mut Account) -> () {
+fn deposit_balance(account: &mut Account) {
     println!("Current Balance: {}", account.balance);
     println!("Currency: {}", account.currency);
 
@@ -79,7 +79,7 @@ fn deposit_balance(account: &mut Account) -> () {
     }
 }
 
-fn withdraw_balance(account: &mut Account) -> () {
+fn withdraw_balance(account: &mut Account) {
     println!("Current Balance: {}", account.balance);
     println!("Currency: {}", account.currency);
 
@@ -94,7 +94,7 @@ fn withdraw_balance(account: &mut Account) -> () {
     }
 }
 
-fn exchange_currencies(rates: &HashMap<&str, f64>) -> () {
+fn exchange_currencies(rates: &HashMap<&str, f64>) {
     println!("Source Currency Options:");
     print_array(&CURRENCIES);
 
@@ -156,7 +156,7 @@ fn exchange_currencies(rates: &HashMap<&str, f64>) -> () {
     println!("Exchange Amount: {exchange_amount}");
 }
 
-fn set_exchange_rate(rates: &mut HashMap<&str, f64>) -> () {
+fn set_exchange_rate(rates: &mut HashMap<&str, f64>) {
     print_array(&CURRENCIES);
 
     println!();
@@ -190,7 +190,7 @@ fn set_exchange_rate(rates: &mut HashMap<&str, f64>) -> () {
 
 const ANNUAL_INTEREST_RATE: f64 = 0.05;
 
-fn calculate_interest(account: &Account) -> () {
+fn calculate_interest(account: &Account) {
     let mut curr_balance = account.balance;
 
     println!("Current Balance: {curr_balance}");
@@ -221,7 +221,7 @@ fn calculate_interest(account: &Account) -> () {
     }
 }
 
-fn main() -> () {
+fn main() {
     let mut accounts = Vec::new();
     let mut exchange_rates = HashMap::<&str, f64>::new();
 
@@ -235,10 +235,7 @@ fn main() -> () {
 
         println!();
 
-        let chosen_idx = match prompt("> ").parse::<usize>() {
-            Ok(i) => i,
-            Err(_) => 0,
-        };
+        let chosen_idx = prompt("> ").parse::<usize>().unwrap_or_default();
 
         println!();
 
