@@ -254,10 +254,7 @@ fn main() {
                 }
             }
             2 | 3 => {
-                if let Some(account) = accounts
-                    .iter_mut()
-                    .find(|account| account.name == prompt("Account Name: "))
-                {
+                if let Some(account) = accounts.iter_mut().find(|a| a.name == prompt("Account Name: ")) {
                     if chosen_idx == 2 {
                         deposit_balance(account);
                     } else {
@@ -284,7 +281,7 @@ fn main() {
                 set_exchange_rate(&mut exchange_rates);
             }
             6 => {
-                if let Some(account) = accounts.iter().find(|account| account.name == prompt("Account Name: ")) {
+                if let Some(account) = accounts.iter().find(|a| a.name == prompt("Account Name: ")) {
                     calculate_interest(account);
                 } else {
                     println!("No account with this name exists!");
