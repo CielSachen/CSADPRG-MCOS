@@ -10,8 +10,8 @@ use std::{
     io::{self, Write},
 };
 
-fn print_array<T: fmt::Display>(arr: &[T]) {
-    for (i, val) in arr.iter().enumerate() {
+fn print_choices<T: fmt::Display>(choices: &[T]) {
+    for (i, val) in choices.iter().enumerate() {
         println!("[{}] {val}", i + 1)
     }
 }
@@ -96,7 +96,7 @@ fn withdraw_balance(account: &mut Account) {
 
 fn exchange_currencies(rates: &HashMap<&str, f64>) {
     println!("Source Currency Options:");
-    print_array(&CURRENCIES);
+    print_choices(&CURRENCIES);
 
     println!();
 
@@ -127,7 +127,7 @@ fn exchange_currencies(rates: &HashMap<&str, f64>) {
     println!();
 
     println!("Exchanged Currency Options:");
-    print_array(&CURRENCIES);
+    print_choices(&CURRENCIES);
 
     println!();
 
@@ -157,7 +157,7 @@ fn exchange_currencies(rates: &HashMap<&str, f64>) {
 }
 
 fn set_exchange_rate(rates: &mut HashMap<&str, f64>) {
-    print_array(&CURRENCIES);
+    print_choices(&CURRENCIES);
 
     println!();
 
@@ -231,7 +231,7 @@ fn main() {
 
     loop {
         println!("Select Transaction:");
-        print_array(&TRANSACTION_TITLES);
+        print_choices(&TRANSACTION_TITLES);
 
         println!();
 
