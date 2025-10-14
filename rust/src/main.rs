@@ -103,7 +103,7 @@ fn exchange_currencies(rates: &HashMap<&str, f64>) {
     let src_idx = match prompt("Source Currency: ").parse::<usize>() {
         Ok(idx) => idx - 1,
         Err(_) => {
-            println!("ID must be a whole number (integer)!");
+            println!("ID must be a positive whole number (integer)!");
 
             return;
         }
@@ -134,7 +134,7 @@ fn exchange_currencies(rates: &HashMap<&str, f64>) {
     let exchange_idx = match prompt("Exchange Currency: ").parse::<usize>() {
         Ok(idx) => idx - 1,
         Err(_) => {
-            println!("ID must be a whole number (integer)!");
+            println!("ID must be a positive whole number (integer)!");
 
             return;
         }
@@ -164,7 +164,7 @@ fn set_exchange_rate(rates: &mut HashMap<&str, f64>) {
     let idx = match prompt("Select Foreign Currency: ").parse::<usize>() {
         Ok(idx) => idx - 1,
         Err(_) => {
-            println!("ID must be a whole number (integer)!");
+            println!("ID must be a positive whole number (integer)!");
 
             return;
         }
