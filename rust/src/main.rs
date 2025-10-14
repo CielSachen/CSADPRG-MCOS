@@ -210,7 +210,7 @@ fn calculate_interest(account: &Account) {
             curr_balance += curr_balance * daily_interest;
 
             println!(
-                "{day:<3.2} | {interest:<8.2} | {balance:<7.2} |",
+                "{day:<3} | {interest:<8.2} | {balance:<7.2} |",
                 day = i,
                 interest = daily_interest,
                 balance = curr_balance
