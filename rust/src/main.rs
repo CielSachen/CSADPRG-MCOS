@@ -229,7 +229,7 @@ fn main() {
         exchange_rates.insert(currency, 1.0);
     }
 
-    loop {
+    'main_menu: loop {
         println!("Select Transaction:");
         print_choices(&TRANSACTION_TITLES);
 
@@ -264,15 +264,25 @@ fn main() {
                     println!("No account with this name exists!");
                 }
             }
-            4 => loop {
+            4 => 'currency_exchange: loop {
                 exchange_currencies(&exchange_rates);
 
                 println!();
 
-                if prompt("Convert another currency? (Y/N): ").to_uppercase() == "N" {
-                    break;
-                } else {
-                    println!();
+                'repeat_prompt: loop {
+                    let is_repeating = prompt("Convert another currency? (Y/N): ").to_uppercase();
+
+                    if is_repeating == "Y" {
+                        println!();
+
+                        break 'repeat_prompt;
+                    } else if is_repeating == "N" {
+                        break 'currency_exchange;
+                    } else {
+                        println!("Only accepting a [Y]es or [N]o answer!");
+
+                        println!();
+                    }
                 }
             },
             5 => {
@@ -294,10 +304,20 @@ fn main() {
 
         println!();
 
-        if prompt("Back to the Main Menu (Y/N): ").to_uppercase() == "N" {
-            break;
-        }
+        let is_continuing = prompt("Back to the Main Menu (Y/N): ").to_uppercase();
 
-        println!();
+        'exit_prompt: loop {
+            if is_continuing == "Y" {
+                println!();
+
+                break 'exit_prompt;
+            } else if is_continuing == "N" {
+                break 'main_menu;
+            } else {
+                println!("Only accepting a [Y]es or [N]o answer!");
+
+                println!();
+            }
+        }
     }
 }
