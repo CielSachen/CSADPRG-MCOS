@@ -304,9 +304,9 @@ fn main() {
 
         println!();
 
-        let is_continuing = prompt("Back to the Main Menu (Y/N): ").to_uppercase();
-
         'exit_prompt: loop {
+            let is_continuing = prompt("Back to the Main Menu (Y/N): ").to_uppercase();
+
             if is_continuing == "Y" {
                 println!();
 
