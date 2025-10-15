@@ -1,0 +1,6 @@
+# Node.js Dependencies
+node_modules/
+.pnpm-debug.log*
+
+# Bundled Code
+dist/

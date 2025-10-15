@@ -1,0 +1,19 @@
+{
+  "$schema": "https://www.schemastore.org/tsconfig.json",
+
+  "extends": [
+    "@tsconfig/recommended/tsconfig.json",
+    "@tsconfig/strictest/tsconfig.json",
+    "@tsconfig/node22/tsconfig.json",
+    "@tsconfig/node-ts/tsconfig.json"
+  ],
+  "include": ["src/**/*"],
+
+  "compilerOptions": {
+    /* Modules */
+    "noUncheckedSideEffectImports": true,
+
+    /* Emit */
+    "noEmit": true
+  }
+}
