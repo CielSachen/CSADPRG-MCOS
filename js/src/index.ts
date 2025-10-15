@@ -186,7 +186,7 @@ async function calculateInterest(account: Readonly<Account>): Promise<void> {
   try {
     dayCnt = Number.parseInt(await prompt("Total Number of Days: "));
   } catch {
-    console.log("ID must be a whole number (integer)!");
+    console.log("Number must be a positive whole number (integer)!");
 
     return;
   }

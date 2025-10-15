@@ -199,7 +199,7 @@ fn calculate_interest(account: &Account) {
 
     println!();
 
-    if let Ok(day_cnt) = prompt("Total Number of Days: ").parse::<i32>() {
+    if let Ok(day_cnt) = prompt("Total Number of Days: ").parse::<u32>() {
         println!();
 
         println!("Day | Interest | Balance |");
@@ -217,7 +217,7 @@ fn calculate_interest(account: &Account) {
             );
         }
     } else {
-        println!("ID must be a whole number (integer)!");
+        println!("Number must be a positive whole number (integer)!");
     }
 }
 
