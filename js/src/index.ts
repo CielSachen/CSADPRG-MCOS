@@ -90,7 +90,12 @@ async function exchangeCurrencies(rates: ReadonlyMap<string, number>): Promise<v
   let srcIdx: number;
 
   try {
-    srcIdx = Number.parseInt(await prompt("Source Currency: "));
+    srcIdx = Number.parseInt(await prompt("Source Currency: ")) - 1;
+
+    if (srcIdx < 0) {
+      // Trigger the error handling (`catch` block).
+      throw new TypeError();
+    }
   } catch {
     console.log("ID must be a positive whole number (integer)!");
 
@@ -123,7 +128,12 @@ async function exchangeCurrencies(rates: ReadonlyMap<string, number>): Promise<v
   let exchangeIdx: number;
 
   try {
-    exchangeIdx = Number.parseInt(await prompt("Source Currency: "));
+    exchangeIdx = Number.parseInt(await prompt("Source Currency: ")) - 1;
+
+    if (exchangeIdx < 0) {
+      // Trigger the error handling (`catch` block).
+      throw new TypeError();
+    }
   } catch {
     console.log("ID must be a positive whole number (integer)!");
 
@@ -150,7 +160,12 @@ async function setExchangeRates(rates: Map<string, number>): Promise<void> {
   let idx: number;
 
   try {
-    idx = Number.parseInt(await prompt("Source Currency: "));
+    idx = Number.parseInt(await prompt("Source Currency: ")) - 1;
+
+    if (idx < 0) {
+      // Trigger the error handling (`catch` block).
+      throw new TypeError();
+    }
   } catch {
     console.log("ID must be a positive whole number (integer)!");
 
@@ -185,6 +200,11 @@ async function calculateInterest(account: Readonly<Account>): Promise<void> {
 
   try {
     dayCnt = Number.parseInt(await prompt("Total Number of Days: "));
+
+    if (dayCnt < 0) {
+      // Trigger the error handling (`catch` block).
+      throw new TypeError();
+    }
   } catch {
     console.log("Number must be a positive whole number (integer)!");
 
