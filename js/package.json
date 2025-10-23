@@ -1,6 +1,17 @@
 {
+  "$schema": "https://www.schemastore.org/package",
   "name": "banking-and-currency-app",
   "version": "1.0.0",
+  "description": "A simple CLI banking and currency exchange app.",
+  "keywords": [
+    "javascript",
+    "school",
+    "school-project"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CielSachen/CSADPRG-MCOS.git"
+  },
   "license": "MIT",
   "author": "Seoyun",
   "type": "module",

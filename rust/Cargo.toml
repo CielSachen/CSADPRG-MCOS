@@ -2,6 +2,9 @@
 name = "banking-and-currency-app"
 version = "1.0.0"
 edition = "2024"
+description = "A simple CLI banking and currency exchange app."
+repository = "https://github.com/CielSachen/CSADPRG-MCOS.git"
 license = "MIT"
+keywords = ["rust", "school", "school-project"]
 
 [dependencies]
