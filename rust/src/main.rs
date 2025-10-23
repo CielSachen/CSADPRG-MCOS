@@ -1,5 +1,5 @@
 /*
- * Last Names: Panaligan
+ * Last Names: Panaligan (Author), Casihan, Cotoco, Mascardo
  * Language: Rust
  * Paradigm(s): Procedural, Object-Oriented, Functional
  */
@@ -10,12 +10,19 @@ use std::{
     io::{self, Write},
 };
 
+/// Prints an array’s contents as CLI prompt choices.
+///
+/// The array's elements are stringified and printed along with their index incremented by one (`i + 1`), serving as the
+/// choice's identifier.
 fn print_choices<T: fmt::Display>(choices: &[T]) {
     for (i, val) in choices.iter().enumerate() {
         println!("[{}] {val}", i + 1)
     }
 }
 
+/// Prompts a CLI user to input a response.
+///
+/// A message is printed before awaiting the user's response, which is inputted on the same line in the console.
 fn prompt(msg: &str) -> String {
     print!("{msg}");
 
@@ -30,7 +37,9 @@ fn prompt(msg: &str) -> String {
     input.trim().to_string()
 }
 
+/// The number of exchangeable currencies.
 const CURRENCY_CNT: usize = 6;
+/// The titles or labels of the exchangeable currencies.
 const CURRENCIES_TITLES: [&str; CURRENCY_CNT] = [
     "Philippine Peso (PHP)",
     "United States Dollar (USD)",
@@ -39,8 +48,10 @@ const CURRENCIES_TITLES: [&str; CURRENCY_CNT] = [
     "Euro (EUR)",
     "Chinese Yuan Renminni (CNY)",
 ];
+/// The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) codes of the exchangeable currencies.
 const CURRENCIES_CODES: [&str; CURRENCY_CNT] = ["PHP", "USD", "JPY", "GBP", "EUR", "CNY"];
 
+/// The titles of the available transactional procedures.
 const TRANSACTION_TITLES: [&str; 6] = [
     "Register Account Name",
     "Deposit Amount",
@@ -50,13 +61,18 @@ const TRANSACTION_TITLES: [&str; 6] = [
     "Show Interest Amount",
 ];
 
+/// A simple user bank account.
 #[derive(PartialEq)]
 struct Account {
+    /// The name of the owner of the account.
     name: String,
+    /// The current balance of the account.
     balance: f64,
+    /// The currency that the account's balance is based on.
     currency: String,
 }
 impl Account {
+    /// Creates a new account with the default values.
     fn new(name: String) -> Account {
         Account {
             name,
@@ -66,6 +82,7 @@ impl Account {
     }
 }
 
+/// Converts an amount from one currency to another.
 fn convert_currency(amount: f64, src: &&str, dest: &&str, rates: &HashMap<&str, f64>) -> f64 {
     let src_php_amount = if *src == "PHP" { amount } else { amount * rates[src] };
 
@@ -76,6 +93,9 @@ fn convert_currency(amount: f64, src: &&str, dest: &&str, rates: &HashMap<&str, 
     }
 }
 
+/// Deposits balance to a user's account.
+///
+/// The user is prompted to input the currency and amount of balance to deposit.
 fn deposit_balance(account: &mut Account, rates: &HashMap<&str, f64>) {
     println!("Current Balance: {}", account.balance);
 
@@ -102,6 +122,10 @@ fn deposit_balance(account: &mut Account, rates: &HashMap<&str, f64>) {
     }
 }
 
+/// Withdraws balance from a user’s account.
+///
+/// The user is prompted to input the currency and amount of balance to withdraw. If the amount is greater than the
+/// account's current balance, the transaction is cancelled.
 fn withdraw_balance(account: &mut Account, rates: &HashMap<&str, f64>) {
     println!("Current Balance: {}", account.balance);
 
@@ -136,6 +160,9 @@ fn withdraw_balance(account: &mut Account, rates: &HashMap<&str, f64>) {
     }
 }
 
+/// Calculates and prints how much one currency is worth in another.
+///
+/// The user is prompted to input the amount and what currencies to exchange.
 fn exchange_currencies(rates: &HashMap<&str, f64>) {
     println!("Source Currency Options:");
     print_choices(&CURRENCIES_TITLES);
@@ -199,6 +226,9 @@ fn exchange_currencies(rates: &HashMap<&str, f64>) {
     );
 }
 
+/// Updates the exchange rate between a currency and Philippine Pesos.
+///
+/// The user is prompted to input the currency and its value in PHP.
 fn set_exchange_rate(rates: &mut HashMap<&str, f64>) {
     print_choices(&CURRENCIES_TITLES[1..]);
 
@@ -231,8 +261,12 @@ fn set_exchange_rate(rates: &mut HashMap<&str, f64>) {
     rates.insert(CURRENCIES_CODES[idx], rate);
 }
 
+/// The fixed annual interest rate percentage.
 const ANNUAL_INTEREST_RATE: f64 = 0.05;
 
+/// Calculates and prints the daily increase to an account's balance from interest.
+///
+/// The user is prompted to input the number of days to calculate for.
 fn calculate_interest(account: &Account) {
     let mut balance = account.balance;
 

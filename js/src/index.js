@@ -1,5 +1,5 @@
 /*
- * Last Names: Panaligan
+ * Last Names: Panaligan (Author), Casihan, Cotoco, Mascardo
  * Language: JavaScript
  * Paradigm(s): Procedural, Object-Oriented, Functional
  */
@@ -8,8 +8,13 @@ import process from "node:process";
 import * as readline from "node:readline/promises";
 
 /**
- * @template {{ toString(): string }} T
- * @param {readonly T[]} choices
+ * Prints an array’s contents as CLI prompt choices.
+ *
+ * The array's elements are stringified and printed along with their index incremented by one (`i + 1`), serving as the
+ * choice's identifier.
+ *
+ * @template {{ toString(): string }} T The type of the choices to print. It must be convertible to a string type.
+ * @param {readonly T[]} choices The choices to print.
  */
 function printChoices(choices) {
   for (const [i, val] of choices.entries()) {
@@ -18,8 +23,12 @@ function printChoices(choices) {
 }
 
 /**
- * @param {string} msg
- * @returns {Promise<string>}
+ * Prompts a CLI user to input a response.
+ *
+ * A message is printed before awaiting the user's response, which is inputted on the same line in the console.
+ *
+ * @param {string} msg The prompt message to print.
+ * @returns {Promise<string>} The user's direct response.
  */
 async function prompt(msg) {
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
@@ -31,6 +40,7 @@ async function prompt(msg) {
   return input;
 }
 
+/** The titles or labels of the exchangeable currencies. */
 const CURRENCY_TITLES = Object.freeze(
   /** @type {const} */ ([
     "Philippine Peso (PHP)",
@@ -41,8 +51,10 @@ const CURRENCY_TITLES = Object.freeze(
     "Chinese Yuan Renminni (CNY)",
   ]),
 );
+/** The {@link https://en.wikipedia.org/wiki/ISO_4217 | ISO 4217} codes of the exchangeable currencies. */
 const CURRENCY_CODES = Object.freeze(CURRENCY_TITLES.map((c) => c.slice(-4, -1)));
 
+/** The titles of the available transactional procedures. */
 const TRANSACTION_TITLES = Object.freeze(
   /** @type {const} */ ([
     "Register Account Name",
@@ -54,23 +66,28 @@ const TRANSACTION_TITLES = Object.freeze(
   ]),
 );
 
+/** A simple user bank account. */
 class Account {
   /**
+   * The name of the owner of the account.
    * @readonly
    * @type {string}
    */
   name;
   /**
+   * The current balance of the account.
    * @type {number}
    */
   balance = 0;
   /**
+   * The currency that the account's balance is based on.
    * @readonly
    */
   currency = "PHP";
 
   /**
-   * @param {string} name
+   * Creates and returns a new `Account` object.
+   * @param {string} name The name of the owner of the account.
    */
   constructor(name) {
     this.name = name;
@@ -78,24 +95,29 @@ class Account {
 }
 
 /**
+ * Converts an amount from one currency to another.
  *
- * @param {number} amount
- * @param {string} src
- * @param {string} dest
- * @param {ReadonlyMap<string, number>} rates
- * @returns {number}
+ * @param {number} amount The amount to convert.
+ * @param {string} src The currency to convert from.
+ * @param {string} dest The currency to convert to.
+ * @param {ReadonlyMap<string, number>} rates The current currency exchange rates.
+ * @returns {number} The equivalent amount in the new currency.
  */
 function convertCurrency(amount, src, dest, rates) {
-  // @ts-ignore
+  // @ts-ignore: `src` is guaranteed to be a key in `rates`.
   const srcPHPAmount = src === "PHP" ? amount : amount * rates.get(src);
 
-  // @ts-ignore
+  // @ts-ignore: `dest` is guaranteed to be a key in `rates`.
   return dest === "PHP" ? srcPHPAmount : srcPHPAmount * rates.get(dest);
 }
 
 /**
- * @param {Account} account
- * @param {ReadonlyMap<string, number>} rates
+ * Deposits balance to a user's account.
+ *
+ * The user is prompted to input the currency and amount of balance to deposit.
+ *
+ * @param {Account} account The account to deposit to.
+ * @param {ReadonlyMap<string, number>} rates The current currency exchange rates.
  */
 async function depositBalance(account, rates) {
   console.log(`Current Balance: ${account.balance}`);
@@ -121,8 +143,13 @@ async function depositBalance(account, rates) {
 }
 
 /**
- * @param {Account} account
- * @param {ReadonlyMap<string, number>} rates
+ * Withdraws balance from a user’s account.
+ *
+ * The user is prompted to input the currency and amount of balance to withdraw. If the amount is greater than the
+ * account's current balance, the transaction is cancelled.
+ *
+ * @param {Account} account The account to withdraw from.
+ * @param {ReadonlyMap<string, number>} rates The current currency exchange rates.
  */
 async function withdrawBalance(account, rates) {
   console.log(`Current Balance: ${account.balance}`);
@@ -156,7 +183,11 @@ async function withdrawBalance(account, rates) {
 }
 
 /**
- * @param {ReadonlyMap<string, number>} rates
+ * Calculates and prints how much one currency is worth in another.
+ *
+ * The user is prompted to input the amount and what currencies to exchange.
+ *
+ * @param {ReadonlyMap<string, number>} rates The current currency exchange rates.
  */
 async function exchangeCurrencies(rates) {
   console.log("Source Currency Options:");
@@ -164,6 +195,7 @@ async function exchangeCurrencies(rates) {
 
   console.log();
 
+  /** @type {number} */
   let srcIdx;
 
   try {
@@ -185,6 +217,7 @@ async function exchangeCurrencies(rates) {
     return;
   }
 
+  /** @type {number} */
   let srcAmount;
 
   try {
@@ -202,6 +235,7 @@ async function exchangeCurrencies(rates) {
 
   console.log();
 
+  /** @type {number} */
   let exchangeIdx;
 
   try {
@@ -229,13 +263,18 @@ async function exchangeCurrencies(rates) {
 }
 
 /**
- * @param {Map<string, number>} rates
+ * Updates the exchange rate between a currency and Philippine Pesos.
+ *
+ * The user is prompted to input the currency and its value in PHP.
+ *
+ * @param {Map<string, number>} rates The current currency exchange rates.
  */
 async function setExchangeRates(rates) {
   printChoices(CURRENCY_TITLES.slice(1));
 
   console.log();
 
+  /** @type {number} */
   let idx;
 
   try {
@@ -264,10 +303,15 @@ async function setExchangeRates(rates) {
   }
 }
 
+/** The fixed annual interest rate percentage. */
 const ANNUAL_INTEREST_RATE = 0.05;
 
 /**
- * @param {Readonly<Account>} account
+ * Calculates and prints the daily increase to an account's balance from interest.
+ *
+ * The user is prompted to input the number of days to calculate for.
+ *
+ * @param {Readonly<Account>} account The account to calculate the interest of.
  */
 async function calculateInterest(account) {
   let { balance } = account;
@@ -278,6 +322,7 @@ async function calculateInterest(account) {
 
   console.log();
 
+  /** @type {number} */
   let dayCnt;
 
   try {
