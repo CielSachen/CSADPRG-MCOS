@@ -1,0 +1,16 @@
+# Checking-in and Checking-out
+*               text=auto
+*.js            text
+*.json          text
+*.lock          text
+*.rs            text diff=rust
+*.toml          text
+*.txt           text
+*.yaml          text
+.clang-format   text
+.editorconfig   text
+.prettierignore text
+
+# Archive Creation
+.gitattributes export-ignore
+.gitignore     export-ignore
