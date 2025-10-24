@@ -281,13 +281,13 @@ fn calculate_interest(account: &Account) {
 
         println!("Day | Interest | Balance |");
 
-        let daily_interest = ANNUAL_INTEREST_RATE / 365.0;
+        let daily_interest = (balance * (ANNUAL_INTEREST_RATE / 365.0) * 100.0).round() / 100.0;
 
         for i in 1..=day_cnt {
-            balance += balance * daily_interest;
+            balance += daily_interest;
 
             println!(
-                "{day:<3} | {interest:<8.2} | {balance:<7.2} |",
+                "{day:<3} | {interest:<8} | {balance:<7.2} |",
                 day = i,
                 interest = daily_interest,
                 balance = balance

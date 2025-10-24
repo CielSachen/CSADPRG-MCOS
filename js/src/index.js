@@ -342,15 +342,13 @@ async function calculateInterest(account) {
 
   console.log("Day | Interest | Balance |");
 
-  let dailyInterest = ANNUAL_INTEREST_RATE / 365;
+  const dailyInterest = Math.round(balance * (ANNUAL_INTEREST_RATE / 365) * 100) / 100;
 
   for (let i = 1; i <= dayCnt; i++) {
-    balance += balance * dailyInterest;
+    balance += dailyInterest;
 
     console.log(
-      `${String(i).padEnd(3)} | ${String(dailyInterest.toFixed(2)).padEnd(8)} | ${String(balance.toFixed(2)).padEnd(
-        7,
-      )} |`,
+      `${String(i).padEnd(3)} | ${String(dailyInterest).padEnd(8)} | ${String(balance.toFixed(2)).padEnd(7)} |`,
     );
   }
 }
