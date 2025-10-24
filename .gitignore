@@ -1,5 +1,12 @@
 # Editor Settings
 .vscode/
 
+# Node.js Dependencies
+**/node_modules/
+.pnpm-debug.log*
+
+# Rust Build Output
+target/
+
 # Miscellaneous
 **/.DS_Store

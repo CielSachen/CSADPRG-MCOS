@@ -8,7 +8,7 @@ import process from "node:process";
 import * as readline from "node:readline/promises";
 
 /**
- * Prints an array’s contents as CLI prompt choices.
+ * Prints an array's contents as CLI prompt choices.
  *
  * The array's elements are stringified and printed along with their index incremented by one (`i + 1`), serving as the
  * choice's identifier.
@@ -143,7 +143,7 @@ async function depositBalance(account, rates) {
 }
 
 /**
- * Withdraws balance from a user’s account.
+ * Withdraws balance from a user's account.
  *
  * The user is prompted to input the currency and amount of balance to withdraw. If the amount is greater than the
  * account's current balance, the transaction is cancelled.

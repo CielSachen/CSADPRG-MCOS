@@ -1,2 +1,5 @@
+packages:
+  - js/*
+
 # Dependency Resolution
 minimumReleaseAge: 1440
