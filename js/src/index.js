@@ -122,7 +122,7 @@ function convertCurrency(amount, src, dest, rates) {
 async function depositBalance(account, rates) {
   console.log(`Current Balance: ${account.balance}`);
 
-  const currency = await prompt("Currency: ");
+  const currency = (await prompt("Currency: ")).toUpperCase();
 
   if (!CURRENCY_CODES.some((c) => c === currency)) {
     console.log("No currency with this code exists!");
@@ -154,7 +154,7 @@ async function depositBalance(account, rates) {
 async function withdrawBalance(account, rates) {
   console.log(`Current Balance: ${account.balance}`);
 
-  const currency = await prompt("Currency: ");
+  const currency = (await prompt("Currency: ")).toUpperCase();
 
   if (!CURRENCY_CODES.some((c) => c === currency)) {
     console.log("No currency with this code exists!");
@@ -278,7 +278,7 @@ async function setExchangeRates(rates) {
   let idx;
 
   try {
-    idx = Number.parseInt(await prompt("Source Currency: ")) - 1;
+    idx = Number.parseInt(await prompt("Source Currency: "));
 
     if (idx < 0) {
       // Trigger the error handling (`catch` block).
@@ -297,7 +297,7 @@ async function setExchangeRates(rates) {
   }
 
   try {
-    rates.set(CURRENCY_TITLES[idx - 1], Number.parseFloat(await prompt("Exchange Rate: ")));
+    rates.set(CURRENCY_TITLES[idx], Number.parseFloat(await prompt("Exchange Rate: ")));
   } catch {
     console.log("Amount must be a floating point number!");
   }
