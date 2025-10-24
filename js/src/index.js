@@ -239,7 +239,7 @@ async function exchangeCurrencies(rates) {
   let exchangeIdx;
 
   try {
-    exchangeIdx = Number.parseInt(await prompt("Source Currency: ")) - 1;
+    exchangeIdx = Number.parseInt(await prompt("Exchange Currency: ")) - 1;
 
     if (exchangeIdx < 0) {
       // Trigger the error handling (`catch` block).
@@ -278,7 +278,7 @@ async function setExchangeRates(rates) {
   let idx;
 
   try {
-    idx = Number.parseInt(await prompt("Source Currency: "));
+    idx = Number.parseInt(await prompt("Select Foreign Currency: "));
 
     if (idx < 0) {
       // Trigger the error handling (`catch` block).
